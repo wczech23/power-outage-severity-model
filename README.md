@@ -66,3 +66,21 @@ This histogram is interesting because it depicts that specific outage causes may
 This histograms shows that the Southwest region has a much longer average power outage duration compared to other U.S regions with 288 hours. For other regions, the distribution is more uniform with a range of 35 - 100 hours on average, with an outlier in the West North Central region. This plot illustrates which regions have the most severe outages on average, and indicates that the Southwest, South, and Northwest have the highest severity power outages.
 
 
+#### Data Aggregations
+
+|   flooding |   heatwave |   heavy wind |   hurricanes |   snow/ice  |   storm |   thunderstorm |   tornadoes |   wildfire |   wind storm |   wind/rain |   winter |   winter storm |
+|-----------:|-----------:|-------------:|-------------:|------------:|--------:|---------------:|------------:|-----------:|-------------:|------------:|---------:|---------------:|
+|          0 |          0 |            6 |            0 |           0 |       1 |              9 |           1 |          0 |            0 |           1 |        0 |              5 |
+|          0 |          2 |            0 |           13 |           0 |       4 |             17 |           0 |          0 |            0 |           1 |        0 |              0 |
+|          0 |          0 |           12 |            0 |           6 |       2 |              1 |           1 |          3 |            0 |           1 |        0 |             16 |
+|          0 |          0 |            9 |            0 |           7 |       2 |              2 |           0 |          0 |            0 |           0 |        4 |             30 |
+|          0 |          0 |            4 |            0 |           0 |       7 |              0 |           0 |          0 |            2 |           0 |       18 |             34 |
+|          0 |          5 |            0 |            3 |           0 |       7 |             42 |           1 |          8 |            1 |           0 |        0 |              0 |
+|          2 |          0 |            2 |            0 |           0 |       8 |             63 |           1 |          2 |            0 |           2 |        0 |              0 |
+|          1 |          0 |            3 |            0 |           0 |       3 |              2 |           0 |          0 |            2 |           5 |        1 |              4 |
+|          1 |          1 |            1 |            0 |           0 |       4 |             19 |           2 |          2 |            0 |           0 |        0 |              0 |
+|          0 |          0 |           10 |            0 |           0 |       0 |              9 |           1 |          2 |            1 |           0 |        0 |              7 |
+|          0 |          0 |            9 |           20 |           0 |       2 |              3 |           0 |          6 |            0 |           2 |        0 |              4 |
+|          0 |          2 |            4 |           37 |           0 |       1 |              8 |           1 |          0 |            0 |           0 |        0 |              0 |
+
+This pivot table is significant because it depicts what storms are the most common during specific months of the year. If we know what storms cause the most severe outages, knowing what months they are most likely to occur gives us an idea of when the most severe outages occur.
