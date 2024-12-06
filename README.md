@@ -1,6 +1,6 @@
 # Power Outage Severity Model
 
-## Created By William Czech
+## Created By William Czech (wczech@umich.edu)
 
 ### Introduction
 
@@ -104,6 +104,14 @@ At the time of predicting this model, we would have access to the information de
 I will be using the accuracy metric to evaluate my model as the predicted value is numeric, so metrics such as recall or precision would not apply in this case.
 
 ### Baseline Model
+
+'''
+# cause_detail pipeline
+cause_detail = Pipeline([
+     ('impute', SimpleImputer(strategy='constant', fill_value='missing')),
+     ('one_hot', OneHotEncoder(drop='first', handle_unknown='ignore')),
+])
+'''
 
 My baseline model contained 2 nomial features, cause_detail (what caused the severe weather power outage), and climate_region (climate region of the U.S where the outage occured). Since both these features are categorical, I used a OneHotEncoding on both features to convert the categorical values into numeric ones. I tested the mean squared error of my model using the X_test data to make predictions and y_test to evaluate the squared difference. I found the mse on the test data was 6986.82, which means the average difference between two values was ~83.5, or ~83.5 hours difference in outage duration. Since the difference was very significant, I would not consider by baseline model to be good.
 
