@@ -105,11 +105,6 @@ I will be using the accuracy metric to evaluate my model as the predicted value 
 
 ### Baseline Model
 
-```python
-# test_train_split
-X_train, X_test, y_train, y_test = train_test_split(outages.drop(columns='outage_duration'),outages['outage_duration'],random_state=98)
-```
-
 
 ```python
 # cause_detail pipeline
@@ -155,6 +150,63 @@ searcher
 My baseline model contained 2 nomial features, cause_detail (what caused the severe weather power outage), and climate_region (climate region of the U.S where the outage occured). Since both these features are categorical, I used a OneHotEncoding on both features to convert the categorical values into numeric ones. I tested the mean squared error of my model using the X_test data to make predictions and y_test to evaluate the squared difference. I found the mse on the test data was 6986.82, which means the average difference between two values was ~83.5, or ~83.5 hours difference in outage duration. Since the difference was very significant, I would not consider by baseline model to be good.
 
 ### Final Model
+
+```python
+# cause_detail pipeline
+cause_detail_final = Pipeline([
+     ('impute', SimpleImputer(strategy='constant', fill_value='missing')),
+     ('one_hot', OneHotEncoder(drop='first', handle_unknown='ignore')),
+])
+
+# climate_region pipeline
+climate_region_final = Pipeline([
+    ('impute', SimpleImputer(strategy='constant', fill_value='missing')),
+    ('one_hot', OneHotEncoder(drop='first', handle_unknown='ignore'))
+    
+])
+
+# area_urban pipeline
+area_urban_final = Pipeline([
+    ('impute', SimpleImputer()),
+    ('std_scaler', StandardScaler())
+])
+
+# start_month pipeline
+total_customers_final = Pipeline([
+    ('impute', SimpleImputer()),
+    ('std_scaler', StandardScaler())
+])
+
+# column transformer
+column_transformer_final = make_column_transformer(
+    (cause_detail_final, ['cause_detail']),
+    (climate_region_final, ['climate_region']),
+    (area_urban_final, ['area_urban']),
+    (total_customers_final, ['total_customers'])
+)
+
+# best_est pipeline w/ Regression
+pipe_final = Pipeline([
+    ('preprocessor',column_transformer_final),
+    ('ridge', Ridge())
+])
+
+hyprm_final = {
+    'ridge__alpha': [2**9,2**-5,2**-4,2**-3,2**-2,2**-1,1,2,2**2,2**3,2**4,2**5,2**6,2**7,2**8]
+}
+
+# GridSearch CV Searcher
+searcher_final = GridSearchCV(
+    pipe_final,
+    param_grid = hyprm_final,
+    scoring='neg_mean_squared_error',
+    cv=10,
+    error_score='raise'
+)
+
+searcher_final.fit(X_train,y_train)
+#searcher_final
+```
 
 On top of the 2 features in my baseline model, I added the percentage of urban land area in the state that outage occured (area_urban) and the total number of customers in the state (total_customers). Both of these features were numerical, and I added a standard scaler to both of them to prevent their values from skewing the predictions during Ridge regression. I believe these two features improved model performance because states with large urban areas and a large number of customers that needed electricity would have a much larger power grid. As a result of a larger power grid, weather causing outages in these areas would last longer because power had to be restored to a larger number of people.
 
