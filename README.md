@@ -105,13 +105,52 @@ I will be using the accuracy metric to evaluate my model as the predicted value 
 
 ### Baseline Model
 
-'''
+```python
+# test_train_split
+X_train, X_test, y_train, y_test = train_test_split(outages.drop(columns='outage_duration'),outages['outage_duration'],random_state=98)
+```
+
+
+```python
 # cause_detail pipeline
 cause_detail = Pipeline([
      ('impute', SimpleImputer(strategy='constant', fill_value='missing')),
      ('one_hot', OneHotEncoder(drop='first', handle_unknown='ignore')),
 ])
-'''
+
+# climate_region pipeline
+climate_region = Pipeline([
+    ('impute', SimpleImputer(strategy='constant', fill_value='missing')),
+    ('one_hot', OneHotEncoder(drop='first', handle_unknown='ignore'))
+    
+])
+
+# column transformer
+column_transformer = make_column_transformer(
+    (cause_detail, ['cause_detail']),
+    (climate_region, ['climate_region'])
+)
+# best_est pipeline w/ Regression
+
+pipe = Pipeline([
+    ('preprocessor',column_transformer),
+    ('linreg', LinearRegression())
+])
+
+hyperparams = {}
+
+# GridSearch CV Searcher
+searcher = GridSearchCV(
+    pipe,
+    param_grid = hyperparams,
+    scoring='neg_mean_squared_error',
+    cv=10,
+    error_score='raise'
+)
+
+searcher.fit(X_train,y_train)
+searcher
+```
 
 My baseline model contained 2 nomial features, cause_detail (what caused the severe weather power outage), and climate_region (climate region of the U.S where the outage occured). Since both these features are categorical, I used a OneHotEncoding on both features to convert the categorical values into numeric ones. I tested the mean squared error of my model using the X_test data to make predictions and y_test to evaluate the squared difference. I found the mse on the test data was 6986.82, which means the average difference between two values was ~83.5, or ~83.5 hours difference in outage duration. Since the difference was very significant, I would not consider by baseline model to be good.
 
