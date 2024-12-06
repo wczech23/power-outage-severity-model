@@ -38,3 +38,31 @@ After cleaning my data, I developed some plots to get a better understanding of 
 
 The plot above shows that most outages caused by severe weather lasted between 12 and 86 hours, with the longest outage lasting over 800 hours. We are determining the severity of an outage based on the outage duration, so this plot depicts the distribution of power outage severity.
 
+<iframe
+  src="plots/outage_cause_dist.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+The histogram above shows that outages caused by mainly by thunderstorms, hurricanes, and winter storms. If we can estimate the severity of outages from these weather occurences, we can build an effective model to predict the severity of outages.
+
+<iframe
+  src="plots/outage_duration_cause.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+This histogram is interesting because it depicts that specific outage causes may lead to longer (more severe) outages. Flooding, hurricanes, and wildfires had the longest outages on average, likely due to the severity of these natural disasters.
+
+<iframe
+  src="plots/outage_duration_region.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+This histograms shows that the Southwest region has a much longer average power outage duration compared to other U.S regions with 288 hours. For other regions, the distribution is more uniform with a range of 35 - 100 hours on average, with an outlier in the West North Central region. This plot illustrates which regions have the most severe outages on average, and indicates that the Southwest, South, and Northwest have the highest severity power outages.
+
+
