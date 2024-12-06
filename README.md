@@ -14,7 +14,9 @@ The model I will build from this analysis will allow for better predictions on w
 
 To clean my dataset, I merged two columns containing the start date and start time into a single timestamp, and completed the same process for the ending time of the outage. To make the duration of the outage a more simple unit, I converted the time of each outage from minutes to hours. Since my analysis is only focused on severe weather cases, I dropped all rows in my dataset that did not have severe weather as the cause of the outage. Additionally, I dropped rows that contained missing values with columns I was to perform analysis on with my model, and also dropped all values in the CAUSE.CATEGORY.DETAIL column that had less than 4 occurences to speed up the training of my model.
 
-| cause_detail   | climate_region     |   area_urban |   TOTAL.CUSTOMERS |   outage_duration |
+After this cleaning steps, this is the first few rows of my dataframe for the columns that I will analyze.
+
+| cause_detail   | climate_region     |   area_urban |   total_customers |   outage_duration |
 |:---------------|:-------------------|-------------:|------------------:|------------------:|
 | heavy wind     | East North Central |         2.14 |       2.5869e+06  |              50   |
 | thunderstorm   | East North Central |         2.14 |       2.60681e+06 |              42.5 |
@@ -23,4 +25,16 @@ To clean my dataset, I merged two columns containing the start date and start ti
 | thunderstorm   | East North Central |         2.14 |       2.47491e+06 |              66   |
 
 
+#### Plots and Analysis
+
+After cleaning my data, I developed some plots to get a better understanding of the relationships in the dataset.
+
+<iframe
+  src="plots/outage_dist.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+The plot above shows that most outages caused by severe weather lasted between 12 and 86 hours, with the longest outage lasting over 800 hours. We are determining the severity of an outage based on the outage duration, so this plot depicts the distribution of power outage severity.
 
